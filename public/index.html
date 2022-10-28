@@ -41,41 +41,67 @@
     </style>
   </head>
   <body>
+    <input type="text" />
+    <div>
+      <strong>screen.availWH:</strong>
+      <div id="screenAvailWH"></div>
+    </div>
+    <div>
+      <strong>screen.WH:</strong>
+      <div id="screenWH"></div>
+    </div>
+    <div>
+      <strong>window.orientation:</strong>
+      <div id="windowOrientation"></div>
+    </div>
+    <div>
+      <strong>window.outer:</strong>
+      <div id="windowOuter"></div>
+    </div>
+    <div>
+      <strong>window.inner:</strong>
+      <div id="windowInner"></div>
+    </div>
+    <div>
+      <strong>window.visualViewport:</strong>
+      <div id="windowVisualViewport"></div>
+    </div>
     <div>===</div>
+    <strong>User agent:</strong>
     <div>
       <code id="ua" />
     </div>
     <div>===</div>
     <div>
-      <div><strong>Safe area inset top:</strong></div>
+      <strong>Safe area inset top:</strong>
       <div id="safeAreaInsetTop_value"></div>
     </div>
     <div>
-      <div><strong>Safe area inset right:</strong></div>
+      <strong>Safe area inset right:</strong>
       <div id="safeAreaInsetRight_value"></div>
     </div>
     <div>
-      <div><strong>Safe area inset bottom:</strong></div>
+      <strong>Safe area inset bottom:</strong>
       <div id="safeAreaInsetBottom_value"></div>
     </div>
     <div>
-      <div><strong>Safe area inset left:</strong></div>
+      <strong>Safe area inset left:</strong>
       <div id="safeAreaInsetLeft_value"></div>
     </div>
     <div>
-      <div><strong>Titlebar area x:</strong></div>
+      <strong>Titlebar area x:</strong>
       <div id="titlebarAreaX_value"></div>
     </div>
     <div>
-      <div><strong>Titlebar area y:</strong></div>
+      <strong>Titlebar area y:</strong>
       <div id="titlebarAreaY_value"></div>
     </div>
     <div>
-      <div><strong>Titlebar area width:</strong></div>
+      <strong>Titlebar area width:</strong>
       <div id="titlebarAreaWidth_value"></div>
     </div>
     <div>
-      <div><strong>Titlebar area height:</strong></div>
+      <strong>Titlebar area height:</strong>
       <div id="titlebarAreaHeight_value"></div>
     </div>
     <script>
@@ -101,6 +127,29 @@
         if (!$ele) return;
         $ele.innerHTML = value || "unknown";
       });
+
+      const $screenAvailWH = document.querySelector("#screenAvailWH");
+      const $screenWH = document.querySelector("#screenWH");
+      const $windowOrientation = document.querySelector("#windowOrientation");
+      const $windowOuter = document.querySelector("#windowOuter");
+      const $windowInner = document.querySelector("#windowInner");
+      const $windowVisualViewport = document.querySelector(
+        "#windowVisualViewport"
+      );
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      window.addEventListener("orientationchange", handleResize);
+      function handleResize() {
+        $screenAvailWH.innerHTML = `${window.screen.availWidth}, ${window.screen.availHeight}`;
+        $screenWH.innerHTML = `${window.screen.width}, ${window.screen.height}`;
+        $windowOrientation.innerHTML =
+          `${window.orientation ?? "unknown"}, ` +
+          `${window.screen.orientation?.type ?? "unknown"}, ` +
+          `${window.screen.orientation?.angle ?? "unknown"}`;
+        $windowOuter.innerHTML = `${window.outerWidth}, ${window.outerHeight}`;
+        $windowInner.innerHTML = `${window.innerWidth}, ${window.innerHeight}`;
+        $windowVisualViewport.innerHTML = `${window.visualViewport.width}, ${window.visualViewport.height}`;
+      }
     </script>
   </body>
 </html>
