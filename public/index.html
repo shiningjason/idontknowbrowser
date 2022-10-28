@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="apple-touch-fullscreen" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,35 +71,35 @@
     <div>===</div>
     <div>
       <strong>Safe area inset top:</strong>
-      <div id="safeAreaInsetTop_value"></div>
+      <div id="safeAreaInsetTop"></div>
     </div>
     <div>
       <strong>Safe area inset right:</strong>
-      <div id="safeAreaInsetRight_value"></div>
+      <div id="safeAreaInsetRight"></div>
     </div>
     <div>
       <strong>Safe area inset bottom:</strong>
-      <div id="safeAreaInsetBottom_value"></div>
+      <div id="safeAreaInsetBottom"></div>
     </div>
     <div>
       <strong>Safe area inset left:</strong>
-      <div id="safeAreaInsetLeft_value"></div>
+      <div id="safeAreaInsetLeft"></div>
     </div>
     <div>
       <strong>Titlebar area x:</strong>
-      <div id="titlebarAreaX_value"></div>
+      <div id="titlebarAreaX"></div>
     </div>
     <div>
       <strong>Titlebar area y:</strong>
-      <div id="titlebarAreaY_value"></div>
+      <div id="titlebarAreaY"></div>
     </div>
     <div>
       <strong>Titlebar area width:</strong>
-      <div id="titlebarAreaWidth_value"></div>
+      <div id="titlebarAreaWidth"></div>
     </div>
     <div>
       <strong>Titlebar area height:</strong>
-      <div id="titlebarAreaHeight_value"></div>
+      <div id="titlebarAreaHeight"></div>
     </div>
     <script>
       const $ua = document.querySelector("#ua");
@@ -110,32 +107,20 @@
 
       $ua.innerHTML = userAgent;
 
-      [
-        "safeAreaInsetTop",
-        "safeAreaInsetRight",
-        "safeAreaInsetBottom",
-        "safeAreaInsetLeft",
-        "titlebarAreaX",
-        "titlebarAreaY",
-        "titlebarAreaWidth",
-        "titlebarAreaHeight",
-      ].forEach((envName) => {
-        const value = window
-          .getComputedStyle(document.documentElement)
-          .getPropertyValue(`--${envName}`);
-        const $ele = document.querySelector(`#${envName}_value`);
-        if (!$ele) return;
-        $ele.innerHTML = value || "unknown";
-      });
-
       const $screenAvailWH = document.querySelector("#screenAvailWH");
       const $screenWH = document.querySelector("#screenWH");
       const $windowOrientation = document.querySelector("#windowOrientation");
       const $windowOuter = document.querySelector("#windowOuter");
       const $windowInner = document.querySelector("#windowInner");
-      const $windowVisualViewport = document.querySelector(
-        "#windowVisualViewport"
-      );
+      const $windowVisualViewport = document.querySelector("#windowVisualViewport");
+      const $safeAreaInsetTop = document.querySelector("#safeAreaInsetTop");
+      const $safeAreaInsetRight = document.querySelector("#safeAreaInsetRight");
+      const $safeAreaInsetBottom = document.querySelector("#safeAreaInsetBottom");
+      const $safeAreaInsetLeft = document.querySelector("#safeAreaInsetLeft");
+      const $titlebarAreaX = document.querySelector("#titlebarAreaX");
+      const $titlebarAreaY = document.querySelector("#titlebarAreaY");
+      const $titlebarAreaWidth = document.querySelector("#titlebarAreaWidth");
+      const $titlebarAreaHeight = document.querySelector("#titlebarAreaHeight");
       renderScreenSize();
 
       const handleResize = debounce(renderScreenSize, 100);
@@ -147,12 +132,19 @@
         $screenAvailWH.innerHTML = `${window.screen.availWidth}, ${window.screen.availHeight}`;
         $screenWH.innerHTML = `${window.screen.width}, ${window.screen.height}`;
         $windowOrientation.innerHTML =
-          `${window.orientation ?? "unknown"}, ` +
-          `${window.screen.orientation?.type ?? "unknown"}, ` +
-          `${window.screen.orientation?.angle ?? "unknown"}`;
+          `${window.orientation ?? "unknown"}, ` + `${window.screen.orientation?.type ?? "unknown"}, ` + `${window.screen.orientation?.angle ?? "unknown"}`;
         $windowOuter.innerHTML = `${window.outerWidth}, ${window.outerHeight}`;
         $windowInner.innerHTML = `${window.innerWidth}, ${window.innerHeight}`;
         $windowVisualViewport.innerHTML = `${window.visualViewport.width}, ${window.visualViewport.height}`;
+        const computedStyle = window.getComputedStyle(document.documentElement);
+        $safeAreaInsetTop.innerHTML = computedStyle.getPropertyValue("--safeAreaInsetTop") || "unknown";
+        $safeAreaInsetRight.innerHTML = computedStyle.getPropertyValue("--safeAreaInsetRight") || "unknown";
+        $safeAreaInsetBottom.innerHTML = computedStyle.getPropertyValue("--safeAreaInsetBottom") || "unknown";
+        $safeAreaInsetLeft.innerHTML = computedStyle.getPropertyValue("--safeAreaInsetLeft") || "unknown";
+        $titlebarAreaX.innerHTML = computedStyle.getPropertyValue("--titlebarAreaX") || "unknown";
+        $titlebarAreaY.innerHTML = computedStyle.getPropertyValue("--titlebarAreaY") || "unknown";
+        $titlebarAreaWidth.innerHTML = computedStyle.getPropertyValue("--titlebarAreaWidth") || "unknown";
+        $titlebarAreaHeight.innerHTML = computedStyle.getPropertyValue("--titlebarAreaHeight") || "unknown";
       }
       function debounce(fn, delay) {
         let timer;
