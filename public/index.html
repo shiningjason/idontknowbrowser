@@ -158,7 +158,7 @@
         let timer;
         return (...args) => {
           clearTimeout(timer);
-          setTimeout(() => {
+          timer = setTimeout(() => {
             fn(...args);
           }, delay);
         };
