@@ -136,10 +136,14 @@
       const $windowVisualViewport = document.querySelector(
         "#windowVisualViewport"
       );
-      handleResize();
+      renderScreenSize();
+
+      const handleResize = debounce(renderScreenSize, 100);
+      window.visualViewport.addEventListener("resize", handleResize);
       window.addEventListener("resize", handleResize);
       window.addEventListener("orientationchange", handleResize);
-      function handleResize() {
+
+      function renderScreenSize() {
         $screenAvailWH.innerHTML = `${window.screen.availWidth}, ${window.screen.availHeight}`;
         $screenWH.innerHTML = `${window.screen.width}, ${window.screen.height}`;
         $windowOrientation.innerHTML =
@@ -149,6 +153,15 @@
         $windowOuter.innerHTML = `${window.outerWidth}, ${window.outerHeight}`;
         $windowInner.innerHTML = `${window.innerWidth}, ${window.innerHeight}`;
         $windowVisualViewport.innerHTML = `${window.visualViewport.width}, ${window.visualViewport.height}`;
+      }
+      function debounce(fn, delay) {
+        let timer;
+        return (...args) => {
+          clearTimeout(timer);
+          setTimeout(() => {
+            fn(...args);
+          }, delay);
+        };
       }
     </script>
   </body>
