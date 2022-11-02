@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="IDKB" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>IDontKnowBrowser - LocaleCompare</title>
+  </head>
+  <body>
+    <button onclick="renderOriginal()">Original</button>
+    <button onclick="sort()">Sort</button>
+    <button onclick="sortByLocaleCompare()">SortByLocaleCompare</button>
+    <button onclick="sortByZh()">SortByZh</button>
+    <div id="result"></div>
+    <script>
+      const source = ["埃及", "1", "1巴", "2", "2巴", "巴拉圭", "波蘭", "E", "e", "丹麥", "A", "Z", "德國", "10", "9", "101", "0", "中國", "土耳其", "西班牙", "a", "z"];
+      const $result = document.querySelector("#result");
+      function renderOriginal() {
+        $result.innerHTML = source.join(",");
+      }
+      function sort() {
+        $result.innerHTML = source.slice().sort().join(",");
+      }
+      function sortByLocaleCompare() {
+        $result.innerHTML = source
+          .slice()
+          .sort((a, b) => a.localeCompare(b))
+          .join(",");
+      }
+      function sortByZh() {
+        $result.innerHTML = source
+          .slice()
+          .sort((a, b) => a.localeCompare(b, "zh"))
+          .join(",");
+      }
+    </script>
+  </body>
+</html>
