@@ -20,6 +20,7 @@
     <button onclick="sort()">Sort</button>
     <button onclick="sortByLocaleCompare()">SortByLocaleCompare</button>
     <button onclick="sortByZh()">SortByZh</button>
+    <button onclick="sortByZhPinyin()">SortByZhPinyin</button>
     <div id="result"></div>
     <script>
       const source = ["埃及", "1", "1巴", "2", "2巴", "巴拉圭", "波蘭", "E", "e", "丹麥", "A", "Z", "德國", "10", "9", "101", "0", "中國", "土耳其", "西班牙", "a", "z"];
@@ -40,6 +41,12 @@
         $result.innerHTML = source
           .slice()
           .sort((a, b) => a.localeCompare(b, "zh"))
+          .join(",");
+      }
+      function sortByZhPinyin() {
+        $result.innerHTML = source
+          .slice()
+          .sort((a, b) => a.localeCompare(b, "zh-pinyin"))
           .join(",");
       }
     </script>
